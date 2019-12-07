@@ -9,6 +9,9 @@ TagManager:
   - Ground_Tag
   - EndZone
   - safeZone
+  - boots
+  - Player Tag
+  - Enemy
   layers:
   - Default
   - TransparentFX

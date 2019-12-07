@@ -59,6 +59,7 @@ public abstract class Enemy : MonoBehaviour
         Destroy(this.gameObject);
     }
     protected virtual void collideWithPlayer(GameObject player){
+        Main.S.Die();
         Destroy(this.gameObject);
     }
 }

@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class MovePlayer : MonoBehaviour
 {
-	private bool isSafe = false, onGround = true, doubleJump = false;
+    [Header("Set in Inspector: Player")]
 	public float speed = 5f;
 	public float maxVelocity = 10f;
 	public float jumpForce = 500.0f;
     public LayerMask maskGround = -1;
     public int ySize = 1; //length of our player used to calculate distance
+    public float runningBoast =1.2f;
 
-	Rigidbody rb;
+    [Header("Set in Dynamically")]
+    public float running = 1f;
+    public bool isSafe = false, onGround = true, doubleJump = false;
+	public Rigidbody rb;
+
 	public bool IsSafe {
 		get { return isSafe; }
 		set { isSafe = value; }
@@ -20,6 +25,7 @@ public class MovePlayer : MonoBehaviour
         get { return onGround; }
         set { onGround = value; }
     }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,9 +34,15 @@ public class MovePlayer : MonoBehaviour
     }
     void FixedUpdate () {
     	float xAxis = Input.GetAxis("Horizontal");                            
-	    rb.AddForce ((xAxis* speed),0,0);
-    	if (rb.velocity.magnitude >= maxVelocity) {
-    		Vector3 v = rb.velocity.normalized * maxVelocity;
+	    rb.AddForce ((xAxis* speed *running),0,0);
+        if(Input.GetKeyDown(KeyCode.LeftControl)||Input.GetKeyDown(KeyCode.RightControl)){
+            running =runningBoast;
+        }
+         if(Input.GetKeyUp(KeyCode.LeftControl)||Input.GetKeyUp(KeyCode.RightControl)){
+            running =1f;
+        }
+    	if (rb.velocity.magnitude*running >= (maxVelocity*running)) {
+    		Vector3 v = rb.velocity.normalized * (maxVelocity*running);
     		rb.velocity = v;
     	}
         if( Physics.Raycast(transform.position,-Vector3.up,ySize,maskGround)){
@@ -49,14 +61,14 @@ public class MovePlayer : MonoBehaviour
         }
     }
     // void Update () {
-    	
     // }
 
     void OnTriggerEnter(Collider other) {
      	//if hit the ground then player becomes grounded
      	if(other.gameObject.tag == "deathZone" && !isSafe){
-            transform.position = new Vector3(0f,0.5f,0f);
+            // transform.position = new Vector3(0f,0.5f,0f);
             Main.S.Die();
+            Destroy(this);
             return;
         }
         if(other.gameObject.tag == "safeZone"){
@@ -75,8 +87,5 @@ public class MovePlayer : MonoBehaviour
             this.isSafe = false;
             return;
         }
-        // if(other.gameObject.tag == "Ground_Tag"){
-        //      this.OnGround = false;
-        // }
     }
 }

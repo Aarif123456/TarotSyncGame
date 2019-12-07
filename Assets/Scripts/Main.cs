@@ -33,7 +33,9 @@ public class Main : MonoBehaviour
         if(lives <=0){ //should never be less than 0 but just in case
             s.loadScreen("level1"); //go reset game
         }
-        PlayerPrefs.SetInt("lives",lives);
-        s.switchScreen("level1");
+        else{
+            PlayerPrefs.SetInt("lives",lives);
+            s.switchScreen("level1");
+        }  
     }
 }

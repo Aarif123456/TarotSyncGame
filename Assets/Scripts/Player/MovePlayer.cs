@@ -41,7 +41,7 @@ public class MovePlayer : MonoBehaviour
          if(Input.GetKeyUp(KeyCode.LeftControl)||Input.GetKeyUp(KeyCode.RightControl)){
             running =1f;
         }
-    	if (rb.velocity.magnitude*running >= (maxVelocity*running)) {
+    	if (rb.velocity.magnitude >= (maxVelocity*running)) {
     		Vector3 v = rb.velocity.normalized * (maxVelocity*running);
     		rb.velocity = v;
     	}
@@ -67,7 +67,7 @@ public class MovePlayer : MonoBehaviour
      	//if hit the ground then player becomes grounded
      	if(other.gameObject.tag == "deathZone" && !isSafe){
             // transform.position = new Vector3(0f,0.5f,0f);
-            Main.S.Die();
+            Main.S.PlayerDamage();
             Destroy(this);
             return;
         }

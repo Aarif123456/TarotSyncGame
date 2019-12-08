@@ -4,17 +4,9 @@ using UnityEngine;
 
 public class Slime : Enemy
 {
-    protected override bool lookForPlayer(){
-        if(Mathf.Abs(playerPosition.x-transform.position.x)<8 && Mathf.Abs(playerPosition.y-transform.position.y) <5){
-            state = ATTACK; // Slime is always in attack mode
-            Debug.Log("Found Player");
-            return true;
-        }
-        state = PATROL;
-        return false;
-    }
+    
     // specific to slime 
-    void slimeMove(float v){
+    void SlimeMove(float v){
         Vector3 pos = transform.position;
         if(pos.x>=leftPoint+ horizontalRange|| pos.x<=leftPoint){
             speed*=-1;
@@ -24,14 +16,14 @@ public class Slime : Enemy
         rb.MovePosition( pos);   
     }
 
-    protected override void patrol(){
-        slimeMove(speed);
+    protected override void Patrol(){
+        SlimeMove(speed);
     }
 
-    protected override void search(){
-        slimeMove(speed*1.5f);
+    protected override void Search(){
+        SlimeMove(speed*1.5f);
     }
-    protected override void attack(){
+    protected override void Attack(){
         Vector3 pos = transform.position;
         float moveSpeed=0f;
         if(playerPosition.x < pos.x)

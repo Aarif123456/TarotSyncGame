@@ -27,7 +27,7 @@ public class Main : MonoBehaviour
     {
         
     }
-    public void Die(){
+    public void PlayerDamage(){
         SwitchScreen s=this.GetComponent<SwitchScreen>();
         lives -= 1;
         if(lives <=0){ //should never be less than 0 but just in case

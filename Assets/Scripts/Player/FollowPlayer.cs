@@ -12,7 +12,7 @@ public class FollowPlayer : MonoBehaviour
     {
     	Vector3 pos = transform.position;
     	pos.x +=  ((playerTransform.position.x-pos.x)-1) * (3f*Time.deltaTime);  
-        pos.y +=  ((playerTransform.position.y-pos.y)+10) * Time.deltaTime;  
+        // pos.y +=  ((playerTransform.position.y-pos.y)+10) * Time.deltaTime;  
         // pos.z +=  ((playerTransform.position.z-pos.z)-10) * Time.deltaTime;  
     	transform.position = pos;        
     }

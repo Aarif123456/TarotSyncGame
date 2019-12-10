@@ -5,7 +5,7 @@ using UnityEngine;
 public class MovePlayer : MonoBehaviour
 {
     [Header("Set in Inspector: Player")]
-	public float speed = 5f;
+	public float speedForce = 500f;
 	public float maxVelocity = 10f;
 	public float jumpForce = 500.0f;
     public LayerMask maskGround = -1;
@@ -14,7 +14,7 @@ public class MovePlayer : MonoBehaviour
 
     [Header("Set in Dynamically")]
     public float running = 1f;
-    public bool isSafe = false, onGround = true, doubleJump = false;
+    public bool isSafe , onGround, doubleJump ;
 	public Rigidbody rb;
 
 	public bool IsSafe {
@@ -27,14 +27,16 @@ public class MovePlayer : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
         doubleJump = false;
+        onGround = true;
+        isSafe = false;
     }
     void FixedUpdate () {
     	float xAxis = Input.GetAxis("Horizontal");                            
-	    rb.AddForce ((xAxis* speed *running),0,0);
+	    rb.AddForce ((xAxis* speedForce *running),0,0);
         if(Input.GetKeyDown(KeyCode.LeftControl)||Input.GetKeyDown(KeyCode.RightControl)){
             running =runningBoast;
         }

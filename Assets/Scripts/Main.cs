@@ -6,6 +6,10 @@ public class Main : MonoBehaviour
 {
 	static public Main S;
 	public int    lives;
+    public int  bootBlasts = 0; //number of double jumps player has **or duration
+    public int  teleports = 0; //teleports player has
+    public int  crossBowShots =0;  //number of shots player has with crossbow
+    
     // Start is called before the first frame update
     void Awake() {
         if(S!=null){

@@ -45,9 +45,22 @@ public abstract class Enemy : MonoBehaviour
             return;
         }
     }
+    protected void GeneralMove(float v){
+        Vector3 pos = transform.position;
+        if(pos.x>=leftPoint+ horizontalRange|| pos.x<=leftPoint){
+            speed*=-1;
+        }             
+        pos.x = Mathf.Min(Mathf.Max(pos.x,leftPoint),leftPoint+ horizontalRange); 
+        rb.velocity = new Vector3(speed,0,0);     
+        rb.MovePosition( pos);         
+    }
     // General walking around
-    protected abstract void Patrol();
-    protected abstract void Search();
+    protected virtual void Patrol(){
+        GeneralMove(speed);
+    }
+    protected virtual void Search(){
+        GeneralMove(speed*1.5f);
+    }
     protected abstract void Attack();
     protected virtual void GetHitByBoots(){
         Destroy(this.gameObject);
@@ -77,4 +90,5 @@ public abstract class Enemy : MonoBehaviour
             }
         }
     }
+
 }
